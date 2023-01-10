@@ -1,0 +1,102 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="ProductDetailsController" access="global">
+	
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="productId" type="String" required="false" description="The product ID" />	
+    <aura:attribute name="ProductDetails" type="Product2[]" access="private"/>
+    <aura:attribute name="productDescription" type="String" required="false" description="The product Description" />
+    
+    <section class="wrap__details">
+        <aura:if isTrue="{!not(empty(v.productDescription))}">                       
+            <div class="all__details item__description productDescription">
+                <h2>Descrição:</h2>
+                <p>{!v.productDescription}</p>
+            </div>
+        </aura:if> 
+        
+        <aura:if isTrue="{!not(empty(v.ProductDetails[0]))}">                       
+            <div class="all__details item__details productDetails">
+                <h2>Detalhe do produto:</h2>
+                <ul>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].Embalagem__c))}">
+                        <li><strong>Embalagem: </strong> {!v.ProductDetails[0].Embalagem__c}</li>
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].Fabricante__c))}">
+                        <li><strong>Fabricante: </strong> {!v.ProductDetails[0].Fabricante__c}</li>
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].Validade__c))}">
+                        <li><strong>Validade (Lote): </strong> 24 meses a partir da data de Produção</li>
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].QuantidadeLiquida__c))}">
+                        <li><strong>Quantidade líquida (Kg): </strong> {!v.ProductDetails[0].QuantidadeLiquida__c}</li>
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].Conservacao__c))}">
+                        <li><strong>Conservação: </strong> {!v.ProductDetails[0].Conservacao__c}</li>
+                    </aura:if>
+                    <aura:if isTrue="{!not(empty(v.ProductDetails[0].Ingredientes__c))}">
+                        <li><strong>Ingredientes: </strong> {!v.ProductDetails[0].Ingredientes__c}</li>
+                    </aura:if>    
+                </ul>        
+            </div>
+        </aura:if> 
+       
+        <aura:if isTrue="{!v.ProductDetails[0].Tipo__c == 'Açúcar'}">
+            <div class="all__details item__details nutritionalTable">
+                <input class="inputCheck mobile" type="checkbox" id="nutritional"/>
+                <label class="nutritional__title mobile" for="nutritional">
+                    Tabela Nutricional
+                </label>
+                <h2 class="nutritional__title desk">Tabela Nutricional</h2>
+            
+                <ul class="accordion__list">
+                    <li class="accordion__item">
+                        <p class="nutritional__label">Informação Nutricional</p>
+                        <span class="nutritional__text">{!v.ProductDetails[0].InformacaoNutricional__c}</span>
+                    </li>
+                    <li class="accordion__item">
+                       <!-- rotulo -->
+                       <div class="slds-grid slds-gutters">
+                            <div class="slds-col">
+                                <span class="nutritional__label">Quantidade por porção</span>
+                            </div>
+                            <div class="slds-col">
+                                <span class="nutritional__label">%VD (*)</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion__item">
+                        <!-- items -->
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">Valor Energético</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">{!v.ProductDetails[0].ValorEnergetico__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">{!v.ProductDetails[0].PorcentagemValorEnergetico__c}%</span>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">Carboidratos</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">{!v.ProductDetails[0].Carboidratos__c}</span>
+                            </div>
+                            <div class="slds-col slds-size_1-of-3">
+                                <span class="nutritional__text">{!v.ProductDetails[0].PorcentagemCarboidratos__c}%</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion__item">
+                        <p class="nutritional__info">Não contém quantidades significativas de Proteínas, Gorduras Totais, Gorduras Saturadas, Gorduras Trans, Fibra Alimentar e Sódio.</p>
+                    </li>
+                    <li class="accordion__item">
+                        <p class="nutritional__info">(*) Valores diários de referência com base em uma dieta de 2000 kcal ou 8400 kJ. Seus valores diários podem ser maiores ou menores dependendo de suas necessidades energéticas.</p>
+                    </li>
+                </ul>
+            </div>
+
+        </aura:if>
+    </section>
+</aura:component>

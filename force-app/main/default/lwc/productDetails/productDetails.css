@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+c-product-details-display {
+    /* border: solid 2px pink; */
+}
+
+
+/*SMALL DEVICES*/
+@media(max-width: 768px) {
+
+}
+
+/*LARGE DEVICES*/
+@media(min-width: 768px) {
+         
+}

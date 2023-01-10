@@ -1,0 +1,65 @@
+<template>
+  <div if:true={isBoletoPayment}>
+    <div
+      if:true={isBoletoPayment}
+      class="
+        slds-notify slds-notify_toast
+        slds-theme_success
+        slds-m-around_none
+        slds-size_full
+        pb-toast-success
+      "
+      role="alert"
+    >
+      <div class="slds-notify__content">
+        <h2>Seu boleto foi gerado com sucesso!</h2>
+      </div>
+    </div>
+    <lightning-spinner
+      if:false={_isLoaded}
+      alternative-text="Carregando..."
+      variant="brand"
+      size="medium"
+    ></lightning-spinner>
+    <div class="pagbrasil-container slds-m-top_x-large slds-hide"></div>
+  </div>
+  <div if:true={isPecPayment}>
+    <div
+      if:true={isPecPayment}
+      class="
+        slds-notify slds-notify_toast
+        slds-theme_success
+        slds-m-around_none
+        slds-size_full
+        pb-toast-success
+      "
+      role="alert"
+    >
+      <div class="slds-notify__content">
+        <h2>PEC Flash gerado com sucesso!</h2>
+      </div>
+    </div>
+    <div class="slds-m-top_x-large">
+      <lightning-formatted-rich-text
+        value={paymentInstructions}
+      ></lightning-formatted-rich-text>
+    </div>
+  </div>
+  <div if:true={isPixPayment}>
+    <div
+      if:true={isPixPayment}
+      class="
+        slds-notify slds-notify_toast
+        slds-theme_success
+        slds-m-around_none
+        slds-size_full
+        pb-toast-success
+      "
+      role="alert"
+    >
+      <div class="slds-notify__content">
+        <h2>Seu pagamento foi confirmado!</h2>
+      </div>
+    </div>
+  </div>
+</template>

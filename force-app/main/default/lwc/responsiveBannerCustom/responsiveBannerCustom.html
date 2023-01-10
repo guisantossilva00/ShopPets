@@ -1,0 +1,21 @@
+<template>
+    <template if:true={isMobile}>
+        <div class="small__banner">
+            <a href={linkToCategory}>
+                <figure>
+                    <img  src={smallImageUrl} alt="Small Banner">
+                </figure>
+            </a>
+        </div>
+    </template>
+
+    <template if:false={isMobile}>
+        <div class="large__banner">
+            <a href={linkToCategory}>
+                <figure>
+                    <img  src={largeImageUrl} alt="Large Banner">
+                </figure>
+            </a>
+        </div>        
+    </template>
+</template>

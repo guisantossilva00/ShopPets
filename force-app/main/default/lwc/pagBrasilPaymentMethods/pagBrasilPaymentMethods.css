@@ -1,0 +1,15 @@
+.purchase-order-error {
+  background-color: #fafaf9;
+  color: #c23934;
+  border: 0.125rem solid #c23934;
+}
+
+.payment-form {
+  min-height: 80px;
+}
+
+@media (max-width: 768px) {
+  .mb-margin {
+    margin-top: 20px;
+  }
+}

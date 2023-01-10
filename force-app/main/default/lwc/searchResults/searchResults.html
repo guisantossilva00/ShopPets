@@ -1,0 +1,92 @@
+<template>
+    <c-modal-add-to-cart-custom></c-modal-add-to-cart-custom>
+    <c-modal-error-custom></c-modal-error-custom>
+    <c-quick-action
+        onquickactioncategory={handleCategoryUpdate} 
+        onquickactionfilters={handleFacetValueUpdate}
+    >
+    </c-quick-action>
+
+    <ul class="slds-grid mobile">
+        <li class="slds-col slds-size_1-of-2">
+            
+            <!-- Neutral variant (default) -->
+            <lightning-button 
+                label="Filtros" 
+                title="Filtros" 
+                onclick={handleQuickAction} 
+                class="slds-m-left_x-medium slds-size"
+            >
+            </lightning-button>
+        </li>
+        <!-- <li class="slds-col slds-size_1-of-2">
+            <lightning-combobox
+                class="slds-size"
+                name="best match"
+                label="Classificar por:"
+                value={value}
+                options={sortByOptions}
+                onchange={handleChangeSortBy} 
+                variant="label-hidden"
+            >
+            </lightning-combobox>
+        </li> -->
+
+    </ul>
+
+    <header class="slds-m-bottom_medium search__result-header">
+        <p class="slds-truncate slds-text-heading_small">{headerText}</p>
+    </header>
+    <article class="layout-container">
+        <lightning-spinner
+            if:true={isLoading}
+            class="slds-is-absolute slds-align_absolute-center"
+            alternative-text="Carregando produtos..."
+            size="medium"
+            variant="brand"
+        >
+        </lightning-spinner>
+        <aside class="aside-section">
+            <div class="slds-p-bottom_medium filters-header">
+                <p class="slds-truncate slds-text-heading_medium">Filtros</p>
+                <lightning-button
+                    class="clear-all-button slds-text-heading_small"
+                    variant="base"
+                    label="Limpar"
+                    onclick={handleClearAll}
+                >
+                </lightning-button>
+            </div>
+            <c-search-category
+                class="slds-border_top"
+                display-data={displayData.categoriesData}
+                oncategoryupdate={handleCategoryUpdate}
+            >
+            </c-search-category>
+            <c-search-filter
+                display-data={displayData.facetsData}
+                class="slds-p-bottom_medium"
+                onfacetvalueupdate={handleFacetValueUpdate}
+            >
+            </c-search-filter>
+        </aside>
+        <section class="main-section">
+            <c-search-layout
+                display-data={displayData.layoutData}
+                config={config.layoutConfig}
+                oncalltoaction={handleAction}
+                onshowdetail={handleShowDetail}
+            >
+            </c-search-layout>
+            <c-search-paginator
+                if:true={hasMorePages}
+                page-number={pageNumber}
+                page-size={displayData.pageSize}
+                total-item-count={displayData.total}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+            >
+            </c-search-paginator>
+        </section>
+    </article>
+</template>

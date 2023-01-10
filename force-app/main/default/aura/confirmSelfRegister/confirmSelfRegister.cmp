@@ -1,0 +1,11 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="confirmSelfRegisterController" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="showRegMsg" type="Boolean" required="true" description="" default="false" access="private"/>
+    <div>        
+        <aura:renderIf isTrue="{!v.showRegMsg}">
+          	<h2>Seu cadastro foi registrado com sucesso!</h2>
+        	<p>Seus dados passarão por uma avaliação interna, assim que aprovados, uma notificação será enviada para seu e-mail informado no registro.</p>  
+            <a class="inverseTextColor" href="./" data-aura-rendered-by="231:0">Voltar para o login</a>
+        </aura:renderIf> 
+    </div>
+</aura:component>

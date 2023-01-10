@@ -1,0 +1,52 @@
+:host {
+    --sds-c-icon-color-foreground-default: #017960;
+}
+
+.contact__title {
+    color: #000;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -.2px;
+    line-height: 54px;
+}
+.contact__subtitle {
+    font-size: 21px;
+    letter-spacing: .1px;
+    line-height: 36px;
+    margin-bottom: 58px;
+    color: #4B4F55;
+}
+.contact__list {
+    border-top: 9px solid #F58220;
+    box-flex: 0.1;
+    flex-grow: 0.1;
+    margin-left: 50px;
+    margin-right: 50px;
+    max-width: 345px;
+    order: 2;
+    padding: 48px 32px;
+
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px 0 rgb(154 160 185 / 5%), 0 10px 20px 0 rgb(166 173 201 / 20%);
+    font-family: AkkuratPro,sans-serif;
+    margin-bottom: 92px;
+    width: 100%;
+}
+.contact__list h3 {
+    font-size: 21px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    color: #000;
+}
+.contact__list p {
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 2;
+}
+.slds-icon_container svg {
+    fill: var(--icon-color);
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+}

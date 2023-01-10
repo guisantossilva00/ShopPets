@@ -1,0 +1,152 @@
+<apex:page title="PDF da tabela de preço"  standardstylesheets="false" applyHtmlTag="false" cache="false" renderAs="PDF" showHeader="false" controller="PricebookPDFController">
+    <header style="font-family: SansSerif; text-align: center; font-size 18px;">
+        <div>
+            <apex:image value="{!$Resource.uisaLogo}" width="200" height="40"/>
+        </div>
+        <div> 
+            <apex:pageBlock rendered="{!!hasError}">
+                <b style="font-size: 18px">TABELA DE PREÇO</b>
+            </apex:pageBlock>
+            <apex:pageBlock rendered="{!hasError}">
+                <div>
+                    <div style="font-size: 16px; padding: 50px;">
+                        <b>{!errorMessage}</b> 
+                    </div>
+                </div> 
+            </apex:pageBlock>
+        </div>
+        
+    </header>
+    
+    <body>
+        <apex:pageBlock rendered="{!!hasError}">
+            <div style="margin-left: 22%; margin-top: 50px">
+                <div style="font-size: 19px;">
+                    <b>Data das condições de pagamento: {!DAY(TODAY())}/{!MONTH(TODAY())}/{!YEAR(TODAY())}</b>
+                </div> 
+                <table style="display: inline-table; border-spacing: 0px;">
+                    <tbody>
+                        <div>
+                            <apex:repeat value="{!nameConditions}" var="conditionName" id="conditionNamesId">  
+                                <tr style="font-size: 16px;">
+                                    <th style="padding: 0px;">
+                                        <div class="Row">
+                                            <div class="col-md-1" style="width: auto; border:1px solid;text-align: center; background-color: orange">
+                                                <span>{!conditionName}</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </apex:repeat>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+            <div style="font-family: SansSerif; text-align: center; font-size 16px;">
+                <apex:repeat value="{!suppliers}" var="supp" id="suppliersRecords">  
+                    <div style="font-size: 19px; text-align: left; margin: 50px">
+                        <b>{!supp.Name}</b> 
+                    </div>  
+                    <apex:repeat value="{!pricebooks}" var="pricebook" id="pricebooksRecords"> 
+                        <apex:outputText rendered="{!IF(supp.Id == pricebook.SupplierCenterLkp__c, true, false)}" >
+                            <div style="margin-bottom: 4.5%"></div>        
+                            <div style="text-align: left;">
+                                <div style="font-size: 15px; padding: 10px">
+                                    <b>({!pricebook.TAXJURCODETxt__c}) {!pricebook.Product2.Name}</b> 
+                                </div> 
+                                <table style="display: inline-table;border-spacing: 0px;">
+                                    <thead>
+                                        <tr>
+                                            <th style="padding: 0px;">
+                                                <div class="Row">
+                                                    <div class="col-md-1" style="border:1px solid;">
+                                                        <span style="padding:5px">Vol. Inicial</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            <th style="padding: 0px;"> 
+                                                <div class="Row">
+                                                    <div class="col-md-1" style="border:1px solid;">
+                                                        <span style="padding:5px">Vol. Final</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!volumesToShow}" var="volumes" id="volumesRepeat">
+                                            <apex:outputText rendered="{!IF(volumes.ProductLkp__c == pricebook.Product2Id, true, false)}" >
+                                                <tr>
+                                                    <td style="padding: 0px;">
+                                                        <div class="Row">
+                                                            <div class="col-md-1" style="text-align: center; border:1px solid;">
+                                                                <apex:outputText rendered="{!IF(volumes.InitialVolumeNmb__c != null, true, false)}">
+                                                                    {!volumes.InitialVolumeNmb__c}
+                                                                </apex:outputText>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding: 0px;">
+                                                        <div class="Row">
+                                                            <div class="col-md-1" style="text-align: center; border:1px solid;">
+                                                                {!volumes.FinalVolumeNmb__c}
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>    
+                                            </apex:outputText> 
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                                
+                                <table style="display: inline-table; border-spacing: 0px;">
+                                    <thead>
+                                        <apex:repeat value="{!conditionsMap[pricebook.Product2Id]}" var="condition" id="conditions">
+                                            <th style="padding: 0px;">
+                                                <div class="Row">
+                                                    <div class="col-md-1" style="width: auto; border:1px solid;text-align: center; background-color: orange">
+                                                        <span style="padding: 5px">{!LEFT(condition, 30)}</span>
+                                                    </div>
+                                                </div>
+                                            </th>
+                                        </apex:repeat>
+                                    </thead>
+                                    <tbody>
+                                        <apex:outputText rendered="{!IF(payConVolDivide[pricebook.Product2Id] != null, true, false)}">
+                                            <apex:repeat value="{!volumesToShow}" var="volumes" id="volumesRepeatValues">
+                                                <apex:outputText rendered="{!IF(volumes.ProductLkp__c == pricebook.Product2Id, true, false)}" >
+                                                    <tr>
+                                                        <apex:repeat value="{!payConVolDivide[pricebook.Product2Id]}" var="payConVol" id="tableRepeat">
+                                                            <apex:outputText rendered="{!IF(payConVol.InitialVolumeNmb__c == volumes.InitialVolumeNmb__c, true, false)}" >
+                                                                <td style="padding: 0px;">
+                                                                    <div class="Row">
+                                                                        <div class="col-md-1" style="width: auto; border:1px solid;text-align: center">
+                                                                            <apex:outputText rendered="{!IF(payConVol.MultiplierPriceNmb__c != null, true, false)}">
+                                                                                <apex:outputText rendered="{!IF(payConVol.MultiplierPriceNmb__c == 0, true, false)}">
+                                                                                    {!ROUND(Pricebook.UnitPrice + (payConVol.MultiplierPriceNmb__c) * Pricebook.UnitPrice, 2)}
+                                                                                </apex:outputText>
+                                                                                <apex:outputText rendered="{!IF(payConVol.MultiplierPriceNmb__c != 0, true, false)}">
+                                                                                    {!ROUND(Pricebook.UnitPrice + (payConVol.MultiplierPriceNmb__c/100) * Pricebook.UnitPrice, 2)}
+                                                                                </apex:outputText>
+                                                                            </apex:outputText>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </apex:outputText>
+                                                        </apex:repeat>
+                                                    </tr>
+                                                </apex:outputText>
+                                            </apex:repeat>
+                                        </apex:outputText>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </apex:outputText>
+                    </apex:repeat>
+                </apex:repeat>
+            </div>
+            <br></br>        
+    </apex:pageBlock>
+</body>
+</apex:page>

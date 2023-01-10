@@ -1,0 +1,188 @@
+<template>
+  <div class="slds-is-relative">
+    <lightning-spinner
+      if:true={isLoading}
+      alternative-text="Aguarde..."
+      variant="brand"
+      size="medium"
+    ></lightning-spinner>
+    <div class="slds-grid slds-grid_pull-padded-small slds-wrap">
+      <div class="slds-col slds-size_1-of-1">
+        <div class="slds-text-heading_small">{billingAddressHeader}</div>
+      </div>
+    </div>
+    <div class="slds-grid slds-grid_pull-padded-small slds-wrap">
+      <div class="slds-col slds-size_1-of-1">
+        <div class="slds-form-element">
+          <lightning-combobox
+            data-validate
+            data-address
+            class="address"
+            name="address"
+            value={address}
+            options={addressOptions}
+            onchange={handleAddressChange}
+            label={labels.SelectAddressPlaceholder}
+            placeholder={labels.SelectAddressPlaceholder}
+            required="true"
+          >
+          </lightning-combobox>
+        </div>
+      </div>
+    </div>
+    <div class="slds-grid slds-grid_pull-padded-small slds-wrap">
+      <div class="slds-col slds-size_1-of-1">
+        <div class="slds-form-element">
+          <lightning-input
+            data-validate
+            data-postal-code
+            class="postalCode"
+            required="true"
+            name="postalCode"
+            value={postalCode}
+            label={labels.PostalCodePlaceholder}
+            placeholder={labels.PostalCodePlaceholder}
+            pattern="(\d{5})-(\d{1,3})"
+            message-when-pattern-mismatch={labels.InvalidPostalCode}
+            maxlength="9"
+            onkeyup={formatPostalCode}
+            onkeydown={formatPostalCode}
+            onkeypress={formatPostalCode}
+            onchange={formatPostalCode}
+          >
+          </lightning-input>
+        </div>
+      </div>
+    </div>
+    <div
+      class="slds-grid slds-grid_pull-padded-small slds-wrap"
+      if:true={showFields}
+    >
+      <div class="slds-col slds-size_2-of-3">
+        <div class="slds-form-element">
+          <lightning-input
+            data-validate
+            data-street
+            class="street"
+            required="true"
+            name="street"
+            maxlength="190"
+            onblur={handleAddressStreetFieldChange}
+            value={street}
+            label={labels.StreetPlaceholder}
+            placeholder={labels.StreetPlaceholder}
+          >
+          </lightning-input>
+        </div>
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <div class="slds-form-element">
+          <lightning-input
+            data-validate
+            data-street-number
+            class="streetNumber"
+            required="true"
+            name="streetNumber"
+            maxlength="6"
+            onblur={handleAddressStreetNumberFieldChange}
+            value={streetNumber}
+            label={labels.StreetNumberPlaceholder}
+            placeholder={labels.StreetNumberPlaceholder}
+          >
+          </lightning-input>
+        </div>
+      </div>
+    </div>
+    <div
+      class="slds-grid slds-grid_pull-padded-small slds-wrap"
+      if:true={showFields}
+    >
+      <div class="slds-col slds-size_1-of-2">
+        <div class="slds-form-element">
+          <lightning-input
+            data-supplement
+            class="supplement"
+            name="supplement"
+            onblur={handleAddressSupplementFieldChange}
+            value={supplement}
+            label={labels.SupplementPlaceholder}
+            placeholder={labels.SupplementPlaceholder}
+          >
+          </lightning-input>
+        </div>
+      </div>
+      <div class="slds-col slds-size_1-of-2">
+        <div class="slds-form-element">
+          <lightning-input
+            data-validate
+            data-neighborhood
+            class="neighborhood"
+            required="true"
+            name="neighborhood"
+            onblur={handleAddressNeightborhoodFieldChange}
+            value={neighborhood}
+            label={labels.NeighborhoodPlaceholder}
+            placeholder={labels.NeighborhoodPlaceholder}
+          >
+          </lightning-input>
+        </div>
+      </div>
+    </div>
+    <div
+      class="slds-grid slds-grid_pull-padded-small slds-wrap"
+      if:true={showFields}
+    >
+      <div class="slds-col slds-size_1-of-3">
+        <div class="slds-form-element">
+          <lightning-input
+            data-validate
+            data-city
+            class="city"
+            required="true"
+            name="city"
+            maxlength="40"
+            onblur={handleAddressCityFieldChange}
+            value={city}
+            label={labels.CityPlaceholder}
+            placeholder={labels.CityPlaceholder}
+          >
+          </lightning-input>
+        </div>
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <div class="slds-form-element">
+          <lightning-combobox
+            data-validate
+            data-state
+            class="state"
+            required="true"
+            name="state"
+            onblur={handleAddressFieldsChange}
+            value={state}
+            label={labels.StatePlaceholder}
+            placeholder={labels.StatePlaceholder}
+            options={stateOptions}
+          >
+          </lightning-combobox>
+        </div>
+      </div>
+      <div class="slds-col slds-size_1-of-3">
+        <div class="slds-form-element">
+          <lightning-combobox
+            data-validate
+            data-country
+            class="country"
+            name="country"
+            onblur={handleAddressFieldsChange}
+            value={country}
+            label={labels.CountryPlaceholder}
+            placeholder={labels.CountryPlaceholder}
+            options={countryOptions}
+            required="true"
+          >
+          </lightning-combobox>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,0 +1,106 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="miniCartCustomController" access="global">
+	<aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="cartId" type="String" required="false" description="The cart ID" />	
+    <aura:attribute name="CartItens" type="String[]" required="false" description="The cart itens" />	
+	<aura:attribute name="showError" type="Boolean" required="true" description="" default="false" access="private"/>
+    <aura:attribute name="errorMessage" type="String" required="false" description="" access="private"/>                	
+    
+    <div>  
+        
+        <div id="cartItens" class="cartItens"> 
+            <button type="button" id="updateCart" aura:id="cartUpdate" class="updateCart" onclick="{!c.updateCart}" />
+            
+            <div id="overlayMiniCart" class="overlayMiniCart"></div>
+            <!-- <input class="quantityItemCart2" type="hidden" id="hiddenQuantity" value="{!v.CartItens[0][9]}"  /> -->
+
+            <aura:if isTrue="{! v.CartItens[0][0] }">
+                <div class="cartItensContainer">
+                    <h1 class="minicart__title">Carrinho de compras</h1>
+                    <!-- <span id="closeMiniCart" class="minicart__close closeMiniCart" onclick="{!c.closeMiniCart}" >X</span> -->
+					<lightning:button variant="base" class="cart__close" title="Close" iconName="utility:close" onclick="{!c.closeMiniCart}" />                      
+                                        
+                    <aura:renderIf isTrue="{!v.showError}">
+                        <div id="error">
+                            <ui:outputRichText value="{!v.errorMessage}"/>
+                        </div>
+                    </aura:renderIf> 
+                    <ul class="product__list">
+                        <aura:iteration items="{!v.CartItens}" var="item">
+                            <li class="product__item" id="{!item[0]}">    
+                                <aura:if isTrue="{! item[6] != 'not-found' }">
+                                    <figure class="product__image">
+                                    	<img class="prdImg" src="{!'/s/sfsites/c/cms/delivery/media/' + item[6]}" />	                                        
+                                    </figure>
+                                </aura:if> 
+                                <aura:if isTrue="{! item[6] == 'not-found' }">
+                                    <figure class="product__image">
+                                        <img class="prdImg" src="/s/sfsites/c/img/b2b/default-product-image.svg" />
+                                    </figure>
+                                </aura:if> 
+                                <h2 class="product__name prdTitle">{!item[4]}</h2>
+                                
+                                <div class="product__remove">
+                                    <span class="removeItemCart" id="{!'rcart-' + item[0]}" onclick="{!c.removeCartItem}">x</span>                                
+                                </div>
+                   
+                                <p class="product__price">R$ <span data-val="{!item[3]}" id="{!'itemPrice-' + item[0]}">{!item[12]}</span></p>                         
+                                <div class="selector__qty">
+                                    <aura:if isTrue="{! item[2] == '1' }">
+                                        <div class="value-button dis decrease" id="{!'decrease-' + item[0]}" onclick="{!c.decreaseCartItem}" value="Decrease Value">-</div>
+                                    </aura:if> 
+                                    <aura:if isTrue="{! item[2] != '1' }">
+                                        <div class="value-button decrease" id="{!'decrease-' + item[0]}" onclick="{!c.decreaseCartItem}" value="Decrease Value">-</div>
+                                    </aura:if> 
+                                    <input class="quantityItemCart" type="number" id="{!'quantity-' + item[0]}" value="{!item[2]}" onchange="{!c.changeQuantityCartItem}" />
+                                    <div class="value-button increase" id="{!'increase-' + item[0]}" onclick="{!c.increaseCartItem}" value="Increase Value">+</div>                    
+                                </div>
+                                <p class="product__totalPrice">R$ <span data-val="{!item[7]}" class="itemTotalPrice" id="{!'itemTotalPrice-' + item[0]}">{!item[13]}</span></p>
+                                <small id="quantityError" class="quantityError"></small>
+                            </li>                        
+                        </aura:iteration>  
+                    </ul>
+                    <div class="info__totals">
+                        <p class="info__totalsProduct">Subtotal(<span id="cartTotalItens">{!v.CartItens[0][9]}</span> produtos)</p>
+                        <p class="info_totalsPrice">R$ <span id="cartTotalPrice">{!v.CartItens[0][14]}</span></p>
+                    </div>
+                    <div class="wrap__buttons">
+                        <lightning:button label="Limpar carrinho" aura:id="clear-cart" onclick="{!c.openModal}" class="clean__cart"/>
+                        <a href="{!'/s/cart/'+v.cartId}" class="close__order">Ir para o carrinho</a>                        
+                    </div>
+                    
+                    <input class="quantityItemCart2" type="hidden" id="hiddenQuantity" value="{!v.CartItens[0][9]}"  />
+                    
+                    <div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="ModalClearCart" class="slds-modal ">
+                        <div class="slds-modal__container" >
+                            <div class="slds-modal__header">
+                                <h2 class="slds-text-heading_medium">Remover todos os itens de seu carrinho?</h2>
+                            </div>
+                            
+                            <div class="slds-modal__footer slds-modal__footer_directional">                    
+                                <lightning:button class="slds-button slds-button_neutral" label="Cancelar" onclick="{!c.closeModal}" />
+                                <lightning:button class="slds-button slds-button_brand" label="Limpar carrinho" onclick="{!c.clearCart}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="loadingSpinnerContainer" class="loadingSpinnerContainer hide">
+                        <div class="overlayLoad"></div>
+                        <div aura:id="loadingSpinner" class="loadingSpinner loafingSpinnerCheckout " data-aura-rendered-by="19:74;a"><div class="slds-p-vertical--xx-large" data-aura-rendered-by="24:74;a"><div class="slds-spinner indicator forceInlineSpinner" aria-hidden="false" role="alert" data-aura-rendered-by="27:74;a" data-aura-class="forceInlineSpinner"><div data-aura-rendered-by="33:74;a" class="forceDotsSpinner" data-aura-class="forceDotsSpinner"><div class="slds-spinner_medium slds-spinner slds-spinner_brand " role="status" data-aura-rendered-by="34:74;a"><span class="slds-assistive-text" data-aura-rendered-by="35:74;a">Carregando...</span><div class="slds-spinner__dot-a" data-aura-rendered-by="37:74;a"></div><div class="slds-spinner__dot-b" data-aura-rendered-by="38:74;a"></div></div></div><!--render facet: 30:74;a--></div></div></div>
+                    </div>      
+                </div>
+                      
+            </aura:if>
+            <aura:if isTrue="{!not(v.CartItens[0][0])}">
+                <div class="empy__cart">
+                    <h1 class="minicart__title">Carrinho de compras</h1>
+                    <lightning:button variant="base" class="cart__close" title="Close" iconName="utility:close" onclick="{!c.closeMiniCart}" />
+                    <!-- <span id="closeMiniCart" class="minicart__close closeMiniCart" onclick="{!c.closeMiniCart}" >X</span> -->
+                    <div class="slds-text-align_center slds-text-color_weak slds-p-top_xx-large">
+                        <h3 class="slds-text-heading_medium">Carrinho vazio ou blockeado pelo checkout</h3>
+                        <p class="slds-text-body_regular slds-p-top_small">Acesse a página do carrinho clicando <a href="{!'/s/cart/'+v.cartId}">aqui</a>.</p>
+                	</div>                
+                </div>
+            </aura:if>               
+		</div>        
+	</div>            
+         
+</aura:component>

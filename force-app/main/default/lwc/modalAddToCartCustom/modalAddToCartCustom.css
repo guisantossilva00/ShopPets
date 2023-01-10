@@ -1,0 +1,8 @@
+@media (max-width: 768px) {
+    .slds-modal__footer a.slds-button,
+    .slds-modal__footer button.slds-button{
+        width: 100%;
+        margin: 0 0 8px;
+        margin-left: 0!important;
+    }
+}

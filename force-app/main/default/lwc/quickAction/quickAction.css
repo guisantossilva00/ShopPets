@@ -1,0 +1,39 @@
+:host {
+    /* position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 99999999999;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+    background: pink; */
+}
+lightning-quick-action-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 9999;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+}
+.panel-plp-mobile {
+    height: calc(100vh - 90px);
+}
+
+.slds-modal__footer {
+    border-top: none!important;
+}
+.slds-button, .title {
+    font-size: 16px;
+}
+.slds-button.slds-button_brand {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    height: 58px;
+    border-radius: 0;
+    color: #fff;
+}

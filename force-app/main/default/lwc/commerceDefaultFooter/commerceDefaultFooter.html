@@ -1,0 +1,105 @@
+<template>
+    <div class="footer-stripe center">
+        <div class="container">
+          <a class="link" href={link1}>{texto1}</a>
+          <a class="link" href={link2}>{texto2}</a>
+          <a class="link" href={link3}>{texto3}</a>
+          <a class="link" href={link4}>{texto4}</a>
+          <a class="link" href={link5}>{texto5}</a>
+        </div>
+      </div>
+    
+      <div class="footer-content center">
+        <div class="content center">
+    
+          <div class="social">
+            <div class="table-cell logo-uisa">
+              <p><a href="https://www.uisa.com.br/" target="_blank" rel="​noopener noreferrer"><img src={logo1}/></a></p>
+            </div>
+            <!-- <div class="table-cell logo-uisa">
+              <p><a href="https://www.acucaritamarati.com.br/" target="_blank" rel="​noopener noreferrer"><img src={logo2}/></a></p>
+            </div> -->
+    
+            <div class="table-cell social-media-fb">
+              <a href="https://www.facebook.com/uisabiorrefinaria" target="_blank" rel="​noopener noreferrer"><img src={logoFb}></a>
+            </div>
+            <div class="table-cell social-media-ig">
+              <a href="https://www.instagram.com/uisabiorrefinaria" target="_blank" rel="​noopener noreferrer"><img src={logoIg}></a>
+            </div>
+            <div class="table-cell social-media-in">
+              <a href="https://www.linkedin.com/company/uisa/" target="_blank" rel="​noopener noreferrer"><img src={logoIn}></a>
+            </div>
+          </div>
+    
+    
+          <div class="table-cell produto accordion">
+            <input class="inputCheck mobile" type="checkbox" id="produto" />
+            <label class="titulo mobile" for="produto">
+              {tabela1Titulo}
+            </label>
+            <h3 class="titulo desk">{tabela1Titulo}</h3>
+
+            <ul class="accordion__list">
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela1Link1} rel="​noopener noreferrer">{tabela1Texto1}</a></li>
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela1Link2} rel="​noopener noreferrer">{tabela1Texto2}</a></li>
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela1Link3} rel="​noopener noreferrer">{tabela1Texto3}</a></li>
+            </ul>
+          </div>
+    
+    
+          <div class="table-cell institucional accordion">
+            <input class="inputCheck mobile" type="checkbox" id="institucional"/>
+            <label class="titulo mobile" for="institucional">
+              {tabela2Titulo}
+            </label>
+            <h3 class="titulo desk">{tabela2Titulo}</h3>
+
+            <ul class="accordion__list">
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela2Link1} rel="​noopener noreferrer">{tabela2Texto1}</a>
+              </li>
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela2Link2} rel="​noopener noreferrer">{tabela2Texto2}</a>
+              </li>
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela2Link3} rel="​noopener noreferrer">{tabela2Texto3}</a>
+              </li>
+              <li class="accordion__item">
+                <a class="a-footer" href={tabela2Link4} rel="​noopener noreferrer">{tabela2Texto4}</a>
+              </li>
+            </ul>
+          </div>
+
+
+          <div class="table-cell politicas accordion">
+            <input class="inputCheck mobile" type="checkbox" id="politicas"/>
+            <label class="titulo mobile" for="politicas">
+              {tabela3Titulo}
+            </label>
+            <h3 class="titulo desk">{tabela3Titulo}</h3>
+
+            <ul class="accordion__list">
+              <li class="accordion__item"><a class="a-footer" href={tabela3Link1} 
+                  rel="​noopener noreferrer">{tabela3Texto1}</a></li>
+              <li class="accordion__item"><a class="a-footer" href={tabela3Link2} 
+                  rel="​noopener noreferrer">{tabela3Texto2}</a></li>
+              <li class="accordion__item"><a class="a-footer" href={tabela3Link3} 
+                  rel="​noopener noreferrer">{tabela3Texto3}</a></li>
+              <li class="accordion__item"><a class="a-footer" href={tabela3Link4} 
+                  rel="​noopener noreferrer">{tabela3Texto4}</a></li>
+              <li class="accordion__item"><a class="a-footer" href={tabela3Link5} 
+                  rel="​noopener noreferrer">{tabela3Texto5}</a></li>
+            </ul>
+          </div>
+    
+        </div>
+        <div class="endereco center">
+          <h3>{frase}</h3>
+            <p class="a-footer">{endereco}</p>
+        </div>
+      </div>
+    
+</template>

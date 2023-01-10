@@ -1,0 +1,8 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    --sds-c-accordion-heading-text-color: #000;
+    --sds-c-accordion-heading-font-size: 16px;
+    --sds-c-accordion-heading-font-weight: 600;
+}

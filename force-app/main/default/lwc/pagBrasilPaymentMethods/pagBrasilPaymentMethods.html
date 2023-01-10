@@ -1,0 +1,225 @@
+<template>
+  <div class="slds-is-relative payment-form">
+    <!-- Loader -->
+    <lightning-spinner
+      if:false={isLoaded}
+      alternative-text={labels.LoadingText}
+      variant="brand"
+      size="medium"
+    ></lightning-spinner>
+
+    <!-- Error Message -->
+    <div
+      if:true={_errorMessage}
+      class="
+        slds-notify slds-notify_alert
+        slds-alert_error
+        slds-m-vertical_small
+      "
+      role="alert"
+    >
+      <span class="slds-assistive-text">error</span>
+      <h2>{_errorMessage}</h2>
+    </div>
+
+    <div class="slds-grid slds-wrap slds-gutters">
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+        <c-pag-brasil-billing-address
+          data-pagbrasil-billing-address
+          billing-address-header={billingHeaderLabel}
+          onsetbillingaddress={handleBillingAddressChange}
+        ></c-pag-brasil-billing-address>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2 mb-margin">
+        <!-- TaxId Field -->
+        <div if:true={isLoaded}>
+          <div class="slds-text-heading_small">{paymentHeaderLabel}</div>
+          <div class="slds-form-element">
+            <lightning-input
+              data-validate
+              data-taxid
+              class="taxId"
+              required="true"
+              onblur={handleTaxIdChange}
+              name="taxId"
+              value={taxId}
+              label={labels.TaxIdLabel}
+              placeholder={labels.TaxIdPlaceholder}
+              pattern="(\d{3}[.]\d{3}[.]\d{3}[-]\d{2}|\d{2}[.]\d{3}[.]\d{3}\/\d{4}[-]\d{2})"
+              message-when-pattern-mismatch={labels.InvalidTaxId}
+              onkeyup={formatTaxId}
+              onkeydown={formatTaxId}
+              onkeypress={formatTaxId}
+              onchange={formatTaxId}
+              maxlength="18"
+            >
+            </lightning-input>
+          </div>
+        </div>
+
+        <!-- Credit Card -->
+        <div class="slds-box slds-m-top_small" if:true={isCardPaymentActive}>
+          <input
+            type="radio"
+            id="card-payment"
+            value={paymentTypes.cardPayment}
+            name="payment-type-option"
+            onclick={handlePaymentTypeSelected}
+            checked={isCardPaymentSelected}
+          />
+          <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="card-payment"
+          >
+            <span class="slds-form-element__label slds-text-title_bold"
+              >{labels.CardPaymentOptionLabel}</span
+            >
+          </label>
+          <div class="slds-media_small slds-float_right">
+            <img src={_creditCardLogoUrl} alt={labels.CardPaymentOptionLabel} />
+          </div>
+          <div class="slds-p-top_medium" if:true={isCardPaymentSelected}>
+            <c-pag-brasil-credit-card-payment-method
+              data-pagbrasil-credit-card-payment-method
+              checkout-settings={_checkoutSettings}
+            >
+            </c-pag-brasil-credit-card-payment-method>
+          </div>
+        </div>
+
+        <!-- Debito Flash -->
+        <div class="slds-box slds-m-top_small" if:true={isDebitPaymentActive}>
+          <input
+            type="radio"
+            id="debit-payment"
+            value={paymentTypes.debitPayment}
+            name="payment-type-option"
+            onclick={handlePaymentTypeSelected}
+            checked={isDebitPaymentSelected}
+          />
+          <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="debit-payment"
+          >
+            <span class="slds-form-element__label slds-text-title_bold"
+              >{labels.DebitPaymentOptionLabel}</span
+            >
+          </label>
+          <div class="slds-media_small slds-float_right">
+            <img src={_debitCardLogoUrl} alt={labels.DebitPaymentOptionLabel} />
+          </div>
+          <div class="slds-p-top_medium" if:true={isDebitPaymentSelected}>
+            <c-pag-brasil-debit-card-payment-method
+              data-pagbrasil-debit-card-payment-method
+            >
+            </c-pag-brasil-debit-card-payment-method>
+          </div>
+        </div>
+
+        <!-- Boleto Flash -->
+        <div class="slds-box slds-m-top_small" if:true={isBoletoPaymentActive}>
+          <input
+            type="radio"
+            id="boleto-payment"
+            value={paymentTypes.boletoPayment}
+            name="payment-type-option"
+            onclick={handlePaymentTypeSelected}
+            checked={isBoletoPaymentSelected}
+          />
+          <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="boleto-payment"
+          >
+            <span class="slds-form-element__label slds-text-title_bold"
+              >{labels.BoletoPaymentOptionLabel}</span
+            >
+          </label>
+          <div class="slds-media_small slds-float_right">
+            <img
+              src={_boletoFlashLogoUrl}
+              alt={labels.BoletoPaymentOptionLabel}
+            />
+          </div>
+        </div>
+
+        <!-- PEC Flash -->
+        <div class="slds-box slds-m-top_small" if:true={isPecPaymentActive}>
+          <input
+            type="radio"
+            id="pec-payment"
+            value={paymentTypes.pecPayment}
+            name="payment-type-option"
+            onclick={handlePaymentTypeSelected}
+            checked={isPecPaymentSelected}
+          />
+          <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="pec-payment"
+          >
+            <span class="slds-form-element__label slds-text-title_bold"
+              >{labels.PecPaymentOptionLabel}</span
+            >
+          </label>
+          <div class="slds-media_small slds-float_right">
+            <img src={_pecLogoUrl} alt={labels.PecPaymentOptionLabel} />
+          </div>
+        </div>
+
+        <!-- PagBrasil Pix -->
+        <div class="slds-box slds-m-top_small" if:true={isPixPaymentActive}>
+          <input
+            type="radio"
+            id="pix-payment"
+            value={paymentTypes.pixPayment}
+            name="payment-type-option"
+            onclick={handlePaymentTypeSelected}
+            checked={isPixPaymentSelected}
+          />
+          <label
+            class="slds-radio__label slds-p-horizontal_x-small"
+            for="pix-payment"
+          >
+            <span class="slds-form-element__label slds-text-title_bold"
+              >{labels.PixPaymentOptionLabel}</span
+            >
+          </label>
+          <div class="slds-media_small slds-float_right">
+            <img src={_pixLogoUrl} alt={labels.PixPaymentOptionLabel} />
+          </div>
+          <div
+            class="slds-p-top_medium"
+            if:true={isPixPaymentSelectedAndPixActive}
+          >
+            <c-pag-brasil-pix-payment-method
+              data-pagbrasil-pix-payment-method
+              pix-loading={_pixLoading}
+              pix-active={_pixActive}
+              pix-image={_pixImage}
+              pix-code={_pixCode}
+              onclickrefreshpix={handlePixRefreshClick}
+            >
+            </c-pag-brasil-pix-payment-method>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div
+          class="
+            slds-card__footer
+            slds-p-vertical_x-small
+            slds-p-horizontal_none
+          "
+          if:true={isLoadedAndPixNotActive}
+        >
+          <lightning-button
+            variant="brand"
+            label={nextButtonLabel}
+            title={nextButtonLabel}
+            onclick={handlePaymentButton}
+            class="slds-m-left_x-small"
+          ></lightning-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

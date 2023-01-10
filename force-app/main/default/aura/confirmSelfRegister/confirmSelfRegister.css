@@ -1,0 +1,14 @@
+.THIS .inverseTextColor {
+    display: inline-block;
+    width: 100%;
+    padding: 24px 0;
+    font-weight: 300;
+    font-size: 18px;
+    color: #f58220;
+    text-align: center;
+}
+
+.THIS .inverseTextColor:hover {
+    text-decoration: underline;
+    color: #f58220;
+}

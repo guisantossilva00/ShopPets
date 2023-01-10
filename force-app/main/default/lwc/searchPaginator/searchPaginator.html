@@ -1,0 +1,40 @@
+<template>
+    <lightning-button 
+        variant="base" 
+        label="Anterior" 
+        title="Anterior" 
+        icon-name="utility:chevronleft" 
+        class="slds-p-around_medium"
+        onclick={handlePrevious}
+        disabled={isFirstPage}
+    ></lightning-button>
+
+    <!-- <lightning-button-icon
+        disabled={isFirstPage}
+        variant="brand"
+        class="slds-p-around_medium"
+        icon-name="utility:chevronleft"
+        onclick={handlePrevious}
+    ></lightning-button-icon> -->
+    <!-- <p>{totalItemCount} itens • página {currentPageNumber} de {totalPages}</p> -->
+    <!-- <lightning-button-icon
+        disabled={isLastPage}
+        variant="brand"
+        class="slds-p-around_medium"
+        icon-name="utility:chevronright"
+        onclick={handleNext}
+    ></lightning-button-icon> -->
+    <p>{currentPageNumber} de {totalPages}</p>
+
+
+    <lightning-button 
+    variant="base" 
+    label="Próxima" 
+    title="Próxima" 
+    icon-name="utility:chevronright" 
+    class="slds-p-around_medium"
+    onclick={handleNext}
+    disabled={isLastPage}
+    icon-position="right"
+></lightning-button>
+</template>

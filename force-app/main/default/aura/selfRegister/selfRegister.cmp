@@ -1,0 +1,341 @@
+<!-- add implements="forceCommunity:availableForAllPageTypes" to surface the component in community builder -->
+<aura:component implements="forceCommunity:availableForAllPageTypes" controller="LightningSelfRegisterController" access="global">
+    <aura:attribute name="accountId" type="String" required="false" description="accountId for creating the user. If not specified, it will create a PersonAccount if possible for B2C scenario. Or otherwise if it's in a community, the community's self-registration accountId will be used."/>
+    <aura:attribute name="regConfirmUrl" type="String" required="true"/>
+    <aura:attribute name="startUrl" type="String" required="false" description="The url you go to after a successful login" />
+    <aura:attribute name="showError" type="Boolean" required="true" description="" default="false" access="private"/>
+    <aura:attribute name="errorMessage" type="String" required="false" description="" access="private"/>
+    <aura:attribute name="firstnameLabel" type="String" required="false" default="First Name"/>
+    <aura:attribute name="lastnameLabel" type="String" required="false" default="Last Name"/>
+    <aura:attribute name="emailLabel" type="String" required="false" default="Email"/>
+    <aura:attribute name="passwordLabel" type="String" required="false" default="Create Password"/>
+    <aura:attribute name="confirmPasswordLabel" type="String" required="false" default="Confirm Password"/>    
+    <aura:attribute name="submitButtonLabel" type="String" required="false" default="Sign Up"/>
+    <aura:attribute name="includePasswordField" type="Boolean" required="false" default="false" description="Whether to include password"/>    
+    <aura:attribute name="extraFieldsFieldSet" type="String" required="false" description="A field set name whose fields are desired for user registration"/>
+    <aura:attribute name="extraFields" type="list" required="false" description="A field set name whose fields are desired for user registration"/>
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="expid" type="String" required="false" description="The branding experience ID" />
+    <aura:attribute name="cepCadastrado" type="String" required="false" description="Cep cadastrado" />
+    <aura:attribute name="myBool" type="Boolean" default="true"/>
+
+    
+    <aura:registerevent name="sitePropagatedStartUrl" type="c:setStartUrl"/>
+    <aura:dependency resource="c:setStartUrl" type="EVENT"/>
+    <!-- Please uncomment
+    <aura:dependency resource="siteforce:registerQueryEventMap" type="EVENT"/>
+    -->
+    <aura:handler event="c:setStartUrl" action="{!c.setStartUrl}"/> 
+    <aura:handler event="c:setExpId" action="{!c.setExpId}"/>    
+    <aura:dependency resource="c:setExpId" type="EVENT"/> 
+    
+    <div class="sfdc_form_wrap">
+        
+        <div id="form-1" class="form-1 sfdc_form_custom">        
+            <h3 class="sfdc_form_title">Para começar o cadastro, insira o seu CEP abaixo:</h3>
+            <aura:renderIf isTrue="{!v.showError}">
+                <div id="error">
+                    <ui:outputRichText value="{!v.errorMessage}"/>
+                </div>
+            </aura:renderIf> 
+            <div id="sfdc_cep_container_f1" class="sfdc sfdc_container">
+                <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                <label>CEP</label>
+                 <ui:inputText placeholder="Digite o CEP da sua loja" aura:id="CEP-f1" class="field" value="" updateOn="keyup"  keyup="{!c.mascaraCEP}"  maxlength="9" />
+            </div>
+            
+            <div id="sfdc_estado_container_f1" class="sfdc sfdc_container">
+                <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                <label>Estado</label>
+                <lightning:select aura:id="Estado-f1" label="" class="sfdc_custom_select">
+                    <option value="">Escolha seu Estado</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </lightning:select>
+            </div>
+            
+            <div class="sfdc">
+                <ui:button aura:id="form1Button" label="Localizar" press="{!c.verificaCep}" class="sfdc_button slds-button slds-button_brand slds-button_stateful"/>
+            </div>
+           
+            <a class="link" target="_blank" href="https://buscacepinter.correios.com.br/app/endereco/index.php">Não sei meu CEP</a>
+        </div>
+    
+        <div id="form-2" class="form-2 hide sfdc_form_custom">
+            <div id="form-2-data">
+                <h3 class="sfdc_form_title">Ops, ainda não entregamos no CEP <span id="cep-f2">{!v.cepCadastrado}</span> :(</h3>
+                <p class="sfdc_form_subtitle">Mas nós podemos te avisar quando a <strong>UISA</strong> chegar na sua região, basta informar os dados abaixo: </p>
+                <aura:renderIf isTrue="{!v.showError}">
+                    <div id="error">
+                        <ui:outputRichText value="{!v.errorMessage}"/>
+                    </div>
+                </aura:renderIf> 
+                <div id="sfdc_companyame_container_f2" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>Razão Social</label>
+                     <ui:inputText placeholder="Digite a razão social" aura:id="CompanyName-f2" class="field" value="" maxlength="80" />
+                </div>
+                <div id="sfdc_email_container_f2" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>{!v.emailLabel}</label>
+                    <ui:inputText value="" aura:id="email-f2" placeholder="Digite seu e-mail" keyup="{!c.onKeyUp}" class="field input sfdc_usernameinput sfdc"/>
+                </div>
+                <div class="sfdc sfdc_custom_buttons">
+                    <ui:button aura:id="form2ButtonAlert" label="Receber alerta" press="{!c.createLead}" class="sfdc_button"/>
+                    <ui:button aura:id="backButton" label="Voltar" press="{!c.backSelfRegister}" class="sfdc_button"/>
+                </div>
+            </div>
+            <div id="form-2-msg" class="sfdc_alert_message hide">
+                <h2 class="sfdc_alert_title">Obrigado por se cadastrar!</h2>
+                <p class="sfdc_alert_text">Nós iremos te avisar quando a <strong>UISA</strong> chegar na sua região.</p>
+            </div>
+        </div>
+        
+        <div id="form-3" class="form-3 hide sfdc_form_custom">
+                <h3 class="sfdc_form_title">Cadastre-se</h3>
+                <aura:renderIf isTrue="{!v.showError}">
+                    <div id="error">
+                        <ui:outputRichText value="{!v.errorMessage}"/>
+                    </div>
+                </aura:renderIf>                    
+                
+                <div id="sfdc_companyame_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>Razão Social</label>
+                    <ui:inputText placeholder="Digite a razão social" aura:id="CompanyName" class="field" value="" maxlength="80" />
+                </div>
+                
+                <div id="sfdc_cnpj_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>CNPJ</label>
+                    <ui:inputText placeholder="Digite o CNPJ" aura:id="CNPJ" class="field" value=""  updateOn="keyup"  keyup="{!c.mascaraCNPJ}" maxlength="18" />
+                </div>
+            
+                <div id="sfdc_inscricaoestadualmunicipal_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>Inscrição estadual ou municipal</label>
+                    <ui:inputText placeholder="Digite a inscrição municipal ou estadual" aura:id="InscricaoEstadualMunicipal" class="field" value="" updateOn="keyup"  keyup="{!c.mascaraInscricao}" maxlength="18" />
+                </div>
+            
+                <div id="sfdc_telefone_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>Telefone</label>
+                    <ui:inputText placeholder="Digite seu telefone" aura:id="Phone" class="field" value=""  updateOn="keyup"  keyup="{!c.mascaraTel}" maxlength="15" />
+                </div>
+    
+                <div id="sfdc_nickname_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                    <label>Responsável</label>
+                    <ui:inputText value="" aura:id="lastname" placeholder="Digite o nome e sobrenome do responsável pelas compras" keyup="{!c.onKeyUp}" class="field input sfdc_usernameinput sfdc"/>
+                </div> 
+
+
+
+                <!--START: Endereço de entrega -->
+
+            	<div id="sfdc_endereco_entrega">         		               
+                    <div id="sfdc_endereco_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>Endereço de Entrega</label>
+                        <ui:inputText placeholder="Digite seu Endereço" aura:id="Endereco_entrega" class="field" value=""  />        	        
+                    </div>
+                
+                    <div id="sfdc_numero_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>Número</label>
+                        <ui:inputText placeholder="Digite o Número" aura:id="Numero_entrega" class="field" value=""  />        	        
+                    </div>
+                
+                    <div id="sfdc_bairro_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>Bairro</label>
+                        <ui:inputText placeholder="Digite seu Bairro" aura:id="Bairro_entrega" class="field" value=""  />        	        
+                    </div>
+                
+                    <div id="sfdc_cidade_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>Cidade</label>
+                        <ui:inputText placeholder="Digite sua Cidade" aura:id="Cidade_entrega" class="field" value=""  />              
+                    </div>
+                
+                    <div id="sfdc_cep_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>CEP</label>
+                        <ui:inputText placeholder="Digite seu CEP" aura:id="CEP_entrega" class="field" value=""  updateOn="keyup"  keyup="{!c.mascaraCEP2}" blur="{!c.getAddress}" maxlength="9" />
+                    </div>
+                
+                    <div id="sfdc_uf_container" class="sfdc sfdc_container">
+                        <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                        <label>Estado</label>
+                        <lightning:select aura:id="Estado_entrega" label="" class="sfdc_custom_select">
+                            <option value="">Escolha seu Estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </lightning:select>               
+                    </div>            
+            	</div>
+
+                <!--END: Endereço de entrega -->
+
+                <div id="sfdc_endereco_checkbox_container" class="sfdc sfdc_container sfdc_change_input">
+                    <!-- <ui:inputCheckbox aura:id="checkbox_entrega" value="{!v.myBool}" label="Este endereço também será de Entrega" change="{!c.onCheck}" /> -->
+                    <!-- Mudei a orderm aqui -->
+                    <ui:inputCheckbox aura:id="checkbox_entrega" value="{!v.myBool}" label="Este endereço também será de Cobrança" change="{!c.onCheck}" />
+                	<!-- <ui:inputText class="resultCheck slds-hidden" aura:id="checkResult" value="false" maxlength="5" /> -->
+            	</div>
+
+
+
+                <!--START: Endereço de conbrança -->
+                <aura:renderIf isTrue="{!v.myBool}">
+                    <div></div>
+                    <aura:set attribute="else">
+                        <div id="sfdc_endereco_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>Endereço de Cobrança</label>
+                            <ui:inputText placeholder="Digite seu Endereço" aura:id="Endereco" class="field" value=""  />        	        
+                        </div>
+                    
+                        <div id="sfdc_numero_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>Número</label>
+                            <ui:inputText placeholder="Digite o Número" aura:id="Numero" class="field" value=""  />        	        
+                        </div>
+                    
+                        <div id="sfdc_bairro_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>Bairro</label>
+                            <ui:inputText placeholder="Digite seu Bairro" aura:id="Bairro" class="field" value=""  />        	        
+                        </div>
+                    
+                        <div id="sfdc_cidade_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>Cidade</label>
+                            <ui:inputText placeholder="Digite sua Cidade" aura:id="Cidade" class="field" value=""  />              
+                        </div>
+                    
+                        <div id="sfdc_cep_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>CEP</label>
+                            <ui:inputText placeholder="Digite seu CEP" aura:id="CEP" class="field" value=""  updateOn="keyup"  keyup="{!c.mascaraCEP2}" blur="{!c.getAddress}" maxlength="9" />
+                        </div>
+                    
+                        <div id="sfdc_uf_container" class="sfdc sfdc_container">
+                            <span id="sfdc_user" class="login-icon" data-icon="a"></span>
+                            <label>Estado</label>
+                            <lightning:select aura:id="Estado" label="" class="sfdc_custom_select">
+                                <option value="">Escolha seu Estado</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                            </lightning:select>               
+                        </div>
+        
+                        <!--END: Endereço de conbrança -->
+                    </aura:set>
+                </aura:renderIf> 
+
+                <div id="sfdc_email_container" class="sfdc sfdc_container">
+                    <span id="sfdc_user" class="login-icon" data-icon="k"></span>
+                    <label>{!v.emailLabel}</label>
+                    <ui:inputText value="" aura:id="email" placeholder="Digite seu e-mail" keyup="{!c.onKeyUp}" class="field input sfdc_usernameinput sfdc"/>
+                </div>
+    
+                <aura:renderIf isTrue="{!v.includePasswordField}">
+                    <div id="sfdc_password_container" class="sfdc sfdc_container">
+                        <span id="sfdc_lock" class="login-icon sfdc" data-icon="c"></span>
+                        <label>{!v.passwordLabel}</label>
+                        <ui:inputSecret value="" aura:id="password" placeholder="Digite a sua senha" keyup="{!c.onKeyUp}" class="field input sfdc_passwordinput sfdc"/>
+                        <small>A senha deve conter no mínimo 8 caracteres, sendo: letras, números e caracteres especiais. </small>
+                    </div>
+        
+                    <div id="sfdc_confirm_password_container" class="sfdc sfdc_container">
+                        <span id="sfdc_lock" class="login-icon sfdc" data-icon="c"></span>
+                        <label>{!v.confirmPasswordLabel}</label>
+                        <ui:inputSecret value="" aura:id="confirmPassword" placeholder="Confirme sua senha" keyup="{!c.onKeyUp}" class="field input sfdc_passwordinput sfdc"/>
+                    </div>
+                </aura:renderIf>
+    
+                <div class="sfdc sfdc_custom_buttons">
+                    <ui:button aura:id="submitButton" label="{!v.submitButtonLabel}" press="{!c.handleSelfRegister}" class="sfdc_button slds-button slds-button_outline-brand"/>
+                    <ui:button aura:id="backButton" label="Voltar" press="{!c.backSelfRegister}" class="sfdc_button"/>
+                </div>
+             
+        </div>
+       
+    </div> 
+</aura:component>

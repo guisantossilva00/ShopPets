@@ -1,0 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    --sds-c-accordion-heading-text-color: #000;
+    --sds-c-accordion-heading-font-size: 16px;
+    --sds-c-accordion-heading-font-weight: 700;
+
+    --sds-c-input-font-size: 15px;
+    --sds-c-input-text-color: #4b4f55;
+
+
+    --sds-c-checkbox-color-border-checked: #017960;
+    --sds-c-checkbox-color-background-checked: #017960;
+    --sds-c-checkbox-mark-color-foreground: #fff;
+
+
+    --sds-c-accordion-section-font-size: 15px;
+}
+
+.slds-accordion__section {
+    padding-bottom: 1.5rem;
+}

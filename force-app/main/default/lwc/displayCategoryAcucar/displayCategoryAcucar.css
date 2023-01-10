@@ -1,0 +1,81 @@
+c-product-tile {
+    padding: 8px;
+    margin: 0!important;
+    max-width: 100%;
+    position: relative;
+}
+
+.search-bar {
+    display: block;
+    margin: 0 0.5rem 0.3rem 0.5rem;
+}
+
+.content {
+    display: flex;
+}
+
+/**CARROSSEIS**/
+.slds-card {
+    position: relative;
+
+    margin: 32px 0;
+
+    border: none;
+}
+
+.header {
+    margin-bottom: 16px;
+}
+
+h2.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+}
+
+p.text {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(0,0,0, 0.4);
+}
+
+/*Mobile*/
+@media(max-width: 768px) {
+    h2.title {
+        font-size: 16px;
+    }
+    p.text {
+        font-size: 12px;
+    }
+}
+
+/*Dektop*/
+@media(min-width: 768px) {
+    c-product-tile + c-product-tile {
+        margin-left: 30px;
+    }
+}
+
+/**
+ custom breakpoints for product tile 
+ **/
+ @media (max-width: 560px) {
+    c-product-tile {
+        width: calc(100% / 2);
+    }    
+}
+@media (min-width: 560px) and (max-width: 768px) {
+    c-product-tile {
+        width: calc(100% / 3);
+    }     
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+    c-product-tile {
+        width: calc(100% / 4);
+    }     
+}
+@media (min-width: 1024px) {
+    c-product-tile {
+        width: calc(100% / 5);
+    }
+}

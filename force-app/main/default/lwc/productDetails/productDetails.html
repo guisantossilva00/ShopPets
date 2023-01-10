@@ -1,0 +1,29 @@
+<template>
+    <lightning-spinner
+        if:false={hasProduct}
+        class="slds-is-relative slds-align_absolute-center slds-m-around_large"
+        alternative-text="Loading product information..."
+        size="medium"
+        variant="brand"
+    >
+    </lightning-spinner>
+    <c-modal-wishlist></c-modal-wishlist>
+    <c-modal-add-to-cart-custom></c-modal-add-to-cart-custom>
+    <c-modal-error-custom></c-modal-error-custom>
+    <c-product-details-display
+        if:true={hasProduct}
+        cart-locked={_isCartLocked}
+        category-path={displayableProduct.categoryPath}
+        custom-fields={displayableProduct.customFields}
+        description={displayableProduct.description}
+        image={displayableProduct.image}
+        in-stock={displayableProduct.inStock}
+        name={displayableProduct.name}
+        vendido-por={displayableProduct.vendidoPor}
+        price={displayableProduct.price}
+        sku={displayableProduct.sku}
+        onaddtocart={triggerAddToCart}
+        oninformcreateandaddtolist={handleModal}
+    >
+    </c-product-details-display>
+</template>
