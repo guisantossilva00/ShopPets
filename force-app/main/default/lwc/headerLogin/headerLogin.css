@@ -1,0 +1,17 @@
+header {
+    width: 100vh;
+    height: 125px;
+    background-color: #FFF3d4;    
+    display: flex;    
+    justify-content: flex-start;
+    align-items: center; 
+}
+
+div {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1500px;
+}
+figure img {
+    width: 165px;
+}
