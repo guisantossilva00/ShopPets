@@ -1,9 +1,7 @@
 import { LightningElement } from 'lwc';
-import ShopPetz from '@salesforce/resourceUrl/ImagensShopPetz';
+import LogoShopPetz from '@salesforce/resourceUrl/logoShopPetz.png';
 
 
 export default class HeaderLogin extends LightningElement {
-    arquivos = {
-        logo: `${ShopPetz}/logoShopPetz.png`
-    }
+   logo = LogoShopPetz
 }
