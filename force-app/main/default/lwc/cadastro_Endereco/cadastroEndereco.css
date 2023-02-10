@@ -1,0 +1,124 @@
+
+@font-face{
+
+    font-family:'myFont';
+    src: url('/resource/ASSETTS/Montserrat-VariableFont_wght.ttf')format('wof');
+
+}
+.salesforceIdentityLoginBody2{
+    background-color: black;
+}
+.titulo{
+    font-family:'myFont';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+}
+.titulo2{
+    font-family:'myFont';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+
+    color: #202020;
+}
+
+.containerPrincipal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+    width: 100%;
+    height: 70%;
+    border: solid 0.5px #F4F2F0;
+    border-radius: 20px;
+    background-color: #FFFFFF;  
+}
+.containerSecunderio{
+    width: 20vw;
+    margin: 60px 87px 60px 87px;
+   
+}
+
+
+
+.numComplement{
+   
+    display: flex;
+}
+.num{  
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+    width: 22.5%;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #F4F2F0;
+    border-radius: 8px;
+    flex: none;
+    order: 4;
+    flex-grow: 0;
+    z-index: 4;
+    
+}
+.complement{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+    
+    height: 56px;
+    left: 100px;
+    top: 352px;
+    background: #FFFFFF;
+    border: 1px solid #F4F2F0;
+    border-radius: 8px;
+    flex: none;
+    order: 5;
+    flex-grow: 0;
+    z-index: 5;
+    margin-left: 10px;
+}
+
+.btnSalvar{
+    color: white;
+    margin-top: 5%;
+    width: 100%;
+    height: 56px;
+    background: #5D5FEF;
+    border-radius: 8px;
+    border:solid  1px #5D5FEF;
+
+}
+.inputs{
+    font-family:'myFont';
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+    width: 100%;
+    height: 56px;
+    background: #FFFFFF;
+    border: 1px solid #F4F2F0;
+    border-radius: 8px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    z-index: 0;
+    margin: 20px 0 20px 0;
+
+}
+.comple{
+    width: 75% !important;
+}
+
