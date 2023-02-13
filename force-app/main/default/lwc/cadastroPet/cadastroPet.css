@@ -89,3 +89,21 @@ option:disabled {
     color: #FFFFFF;
     background-color: #5d5fef;
 }
+
+small {
+    visibility: hidden;
+}
+
+.position-control.sucesso input, .position-control.sucesso select  {
+    border: 2px solid #2ecc71;
+}
+
+.position-control.erro small {
+    visibility: visible;
+    color: #e74c3c;
+    margin: 0 0 0 10px;
+}
+
+.position-control.erro input, .position-control.erro select {
+    border: 2px solid #e74c3c;
+}

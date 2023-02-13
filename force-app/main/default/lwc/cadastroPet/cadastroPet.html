@@ -4,7 +4,7 @@
             <h1>Cadastro de Pets</h1>
         </div>
 
-        <form>
+        <form data-form="formulario">
             <div class="container-grupo">
                 <div class="container-individual">
                     <label for="qualPet">Qual é o tipo do seu Pet?</label>
@@ -17,14 +17,16 @@
                             <option value="Passaro">Pássaro</option>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
 
                 <div class="container-individual">
                     <label for="nomePet">Qual o nome do seu pet?</label>
-                    <input type="text" id="nomePet" name="nomePet" onchange={getNames}  placeholder="Digite o nome do seu pet">
-                    <small></small>
+                    <div class="position-control">
+                        <input type="text" id="nomePet" name="nomePet" onchange={getNames}  placeholder="Digite o nome do seu pet">
+                        <small></small>
+                    </div>
                 </div>
             </div>
             <div class="container-grupo">
@@ -42,8 +44,8 @@
                             <option value="Não Sabe">Não sei responder</option>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
 
                 <div class="container-individual">
@@ -140,8 +142,8 @@
                             !-- Pássaro -->
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
             </div>
             <div class="container-grupo">
@@ -159,16 +161,16 @@
                         ?
                     </label>
                     <div class="position-control">
-                        <input type="date" id="dataNascimentoPet" name="dataNascimentoPet">
+                        <input type="date" id="dataNascimentoPet" name="dataNascimentoPet" value={anoNascimentoPet}>
                         <span class="icone-maior"><img src={calendarioIcon} alt="Icone de calendário" title="Icone de calendário"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
 
                 <div class="container-individual">
                     <label for="anoNascimentoPet">Se não souber, escolha a idade que mais se aproxima:</label>
                     <div class="position-control">
-                        <select id="anoNascimentoPet" name="anoNascimentoPet">
+                        <select id="anoNascimentoPet" name="anoNascimentoPet" onchange={getNames}>
                             <option value="" disabled selected>Escolha uma opção</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -189,7 +191,6 @@
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
                     </div>
-                    <small></small>
                 </div>                
             </div>
             <div class="container-grupo">
@@ -212,8 +213,8 @@
                             <option value="Não">Não</option>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
 
                 <div class="container-individual">
@@ -239,8 +240,8 @@
                             <option value="25kg +">25kg +</option>
                         </select>
                         <span class="icone-maior"><img src={pesoIcon} alt="Icone de peso" title="Icone de peso"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div> 
             </div>
 
@@ -265,8 +266,8 @@
                             <option value="Manso">Manso</option>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                        <small></small>
                     </div>
-                    <small></small>
                 </div>
                 <!-- <div>
                     <textarea name="" id="" cols="30" rows="10"></textarea>
