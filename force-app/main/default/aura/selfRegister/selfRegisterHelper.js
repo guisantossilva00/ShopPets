@@ -13,6 +13,8 @@
         var firstname = component.find("firstname").get("v.value");
         var lastname = component.find("lastname").get("v.value");
         var email = component.find("email").get("v.value");
+        var phone = component.find("phone").get("v.value");
+        var cpf = component.find("cpf").get("v.value");
         var includePassword = component.get("v.includePasswordField");
         var password = component.find("password").get("v.value");
         var confirmPassword = component.find("confirmPassword").get("v.value");
@@ -22,7 +24,7 @@
         
         startUrl = decodeURIComponent(startUrl);
         
-        action.setParams({firstname:firstname,lastname:lastname,email:email,
+        action.setParams({firstname:firstname,lastname:lastname,email:email, phone:phone, cpf:cpf,
                 password:password, confirmPassword:confirmPassword, accountId:accountId, regConfirmUrl:regConfirmUrl, extraFields:extraFields, startUrl:startUrl, includePassword:includePassword});
           action.setCallback(this, function(a){
           var rtnValue = a.getReturnValue();

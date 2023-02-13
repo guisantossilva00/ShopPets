@@ -11,7 +11,7 @@
     <aura:attribute name="forgotPasswordLabel" type="String" required="false" default="Forgot your password?"/>
     <aura:attribute name="selfRegisterLabel" type="String" required="false" default="Not a member?"/>
     <aura:attribute name="forgotPasswordUrl" type="String" required="false" default="/ForgotPassword"/>
-    <aura:attribute name="selfRegisterUrl" type="String" required="false" default="/SelfRegister"/>
+    <aura:attribute name="selfRegisterUrl" type="String" required="false" default="/CriarConta"/>
     
     <aura:attribute name="isUsernamePasswordEnabled" type="Boolean" access="private"/>
     <aura:attribute name="isSelfRegistrationEnabled" type="Boolean" access="private"/>

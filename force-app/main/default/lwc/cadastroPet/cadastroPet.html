@@ -1,0 +1,276 @@
+<template>
+    <div class="container">
+        <div class="titulo">
+            <h1>Cadastro de Pets</h1>
+        </div>
+
+        <form>
+            <div class="container-grupo">
+                <div class="container-individual">
+                    <label for="qualPet">Qual é o tipo do seu Pet?</label>
+                    <div class="position-control">
+                        <select id="qualPet" name="qualPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="Cachorro">Cachorro</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Roedor">Roedor</option>
+                            <option value="Pássaro">Pássaro</option>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>
+
+                <div class="container-individual">
+                    <label for="nomePet">Qual o nome do seu pet?</label>
+                    <input type="text" id="nomePet" name="nomePet" onchange={getNames}  placeholder="Digite o nome do seu pet">
+                    <small></small>
+                </div>
+            </div>
+            <div class="container-grupo">
+                <div class="container-individual">
+                    <label for="generoPet">
+                        <template if:true={nomeDoPet}>{nomeDoPet} </template>
+                        <template if:false={nomeDoPet}>Seu pet </template> 
+                        é:
+                    </label>
+                    <div class="position-control">
+                        <select id="generoPet" name="generoPet" onchange={getNames}>
+                            <option value="" disabled selected>Escolha um gênero</option>
+                            <option value="Fêmea">Fêmea</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Não Sabe">Não sei responder</option>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>
+
+                <div class="container-individual">
+                    <label for="racaPet">
+                        Qual a raça 
+                        <template if:true={generoDoPet}> da
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template>
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        <template if:false={generoDoPet}> do 
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template> 
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        ?
+                    </label>
+                    <div class="position-control">
+                        <select id="racaPet" name="racaPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <!-- Cachorro -->
+                            <template if:true={qualTipoPet.Cachorro}>
+                                <option value="Afghan Hound">Afghan Hound</option>
+                                <option value="Airedale Terrier">Airedale Terrier</option>
+                                <option value="Akita Americano">Akita Americano</option>
+                                <option value="Akita Inu">Akita Inu</option>
+                                <option value="American Bully">American Bully</option>
+                                <option value="American StaffordShire Terrier">American StaffordShire Terrier</option>
+                                <option value="American Tenerife">American Tenerife</option>
+                                <option value="Australian Silky Terrier">Australian Silky Terrier</option>
+                                <option value="Basenji">Basenji</option>
+                                <option value="Basset Hound">Basset Hound</option>
+                                <option value="Beagle">Beagle</option>
+                                <option value="Bedlington">Bedlington</option>
+                                <option value="Bernese Mountain">Bernese Mountain</option>
+                                <option value="Bichon Frisé">Bichon Frisé</option>
+                                <option value="Biewer Terrier">Biewer Terrier</option>
+                                <option value="Bloodhound">Bloodhound</option>
+                                <option value="Blue Heeler Boiadeiro Australiano">Blue Heeler Boiadeiro Australiano</option>
+                                <option value="Boiadeiro Bernês">Boiadeiro Bernês</option>
+                                <option value="Boiadeiro de Entlebuch">Boiadeiro de Entlebuch</option>
+                                <option value="Abissínio">Abissínio</option>
+                                <option value="Golden Retriever">Golden Retriever</option>
+                                <option value="Husk">Husk</option>
+                                <option value="São Bernardo">São Bernardo</option>
+                                <option value="Labrador">Labrador</option>
+                                <option value="Pastor Alemão">Pastor Alemão</option>
+                                <option value="Rottweiler">Rottweiler</option>
+                                <option value="Boxer">Boxer</option>
+                                <option value="Pug">Pug</option>
+                                <option value="Border Collie">Border Collie</option>
+                                <option value="Dálmata">Dálmata</option>
+                                <option value="Buldogue Francês">Buldogue Francês</option>
+                                <option value="SRD">Sem Raça Defenida</option>
+                            </template>
+                            !-- Cachorro -->
+                            
+                            !-- Gato -->
+                            <template if:false={qualTipoPet.Cachorro}>
+                            <option value="American Curl">American Curl</option>
+                            <option value="American Shorthair">American Shorthair</option>
+                            <option value="Angorá">Angorá</option>
+                            <option value="Azul Russo">Azul Russo</option>
+                            <option value="Balinês">Balinês</option>
+                            <option value="Bengal">Bengal</option>
+                            <option value="Bobtail Japonês">Bobtail Japonês</option>
+                            <option value="Bosques da Noruega">Bosques da Noruega</option>
+                            <option value="Brazilian Shorhair">Brazilian Shorhair</option>
+                            <option value="Burmilla">Burmilla</option>
+                            <option value="Burmês">Burmês</option>
+                            <option value="Chartreux">Chartreux</option>
+                            <option value="ColorPoint">ColorPoint</option>
+                            <option value="Cornish Rex">Cornish Rex</option>
+                            <option value="Devon Rex">Devon Rex</option>
+                            <option value="Egyptian Mau">Egyptian Mau</option>
+                            <option value="European Shorhair">European Shorhair</option>
+                            <option value="SRD">Sem Raça Defenida</option>
+                            !-- Gato -->
+
+                            !-- Roeador -->
+                            <option value="Coelho">Coelho</option>
+                            <option value="Porquinho da India">Porquinho da India</option>
+                            <option value="Rato">Rato</option>
+                            !-- Roeador -->
+
+                            !-- Pássaro -->
+                            <option value="Papagaio">Papagaio</option>
+                            <option value="Arara">Arara</option>
+                            <option value="Calopsita">Calopsita</option>
+                            <option value="Canário">Canário</option>
+                            !-- Pássaro -->
+                                </template>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>
+            </div>
+            <div class="container-grupo">
+                <div class="container-individual">
+                    <label for="dataNascimentoPet">
+                        Qual a data de nascimento  
+                        <template if:true={generoDoPet}> da
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template>
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        <template if:false={generoDoPet}> do 
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template> 
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>
+                        ?
+                    </label>
+                    <div class="position-control">
+                        <input type="date" id="dataNascimentoPet" name="dataNascimentoPet">
+                        <span class="icone-maior"><img src={calendarioIcon} alt="Icone de calendário" title="Icone de calendário"></span>
+                    </div>
+                    <small></small>
+                </div>
+
+                <div class="container-individual">
+                    <label for="anoNascimentoPet">Se não souber, escolha a idade que mais se aproxima:</label>
+                    <div class="position-control">
+                        <select id="anoNascimentoPet" name="anoNascimentoPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>                
+            </div>
+            <div class="container-grupo">
+                <div class="container-individual">
+                    <label for="castradoPet">
+                        <template if:true={generoDoPet}>A
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template>
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        <template if:false={generoDoPet}>O
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template> 
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>
+                        é castrado?
+                    </label>
+                    <div class="position-control">
+                        <select id="castradoPet" name="castradoPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>
+
+                <div class="container-individual">
+                    <label for="pesoPet">
+                        Qual o peso
+                        <template if:true={generoDoPet}> da
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template>
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        <template if:false={generoDoPet}> do 
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template> 
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>
+                        ?
+                    </label>
+                    <div class="position-control">
+                        <select id="pesoPet" name="pesoPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="Ate 5kg">Ate 5kg</option>
+                            <option value="5kg - 10kg">5kg - 10kg</option>
+                            <option value="10kg - 20kg">10kg - 20kg</option>
+                            <option value="20kg - 25kg">20kg - 25kg</option>
+                            <option value="25kg +">25kg +</option>
+                        </select>
+                        <span class="icone-maior"><img src={pesoIcon} alt="Icone de peso" title="Icone de peso"></span>
+                    </div>
+                    <small></small>
+                </div> 
+            </div>
+
+            <div>
+                <div class="container-individual">
+                    <label for="temperamentoPet">
+                        Qual o temperamento
+                        <template if:true={generoDoPet}> da
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template>
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>                        
+                        <template if:false={generoDoPet}> do 
+                            <template if:true={nomeDoPet}> {nomeDoPet} </template> 
+                            <template if:false={nomeDoPet}> seu pet</template>
+                        </template>
+                        ?
+                    </label>
+                    <div class="position-control">
+                        <select id="temperamentoPet" name="temperamentoPet">
+                            <option value="" disabled selected>Escolha uma opção</option>
+                            <option value="Bravo">Bravo</option>
+                            <option value="Manso">Manso</option>
+                        </select>
+                        <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
+                    </div>
+                    <small></small>
+                </div>
+                <!-- <div>
+                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                </div> -->
+            </div>
+            <div class="container-btn">
+                <button>Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</template>

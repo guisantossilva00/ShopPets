@@ -7,6 +7,11 @@
     <label>CommunitiesSelfReg</label>
     <packageVersions>
         <majorNumber>1</majorNumber>
+        <minorNumber>22</minorNumber>
+        <namespace>cloudx_cms</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
         <minorNumber>7</minorNumber>
         <namespace>sf_com_apps</namespace>
     </packageVersions>
@@ -14,5 +19,10 @@
         <majorNumber>1</majorNumber>
         <minorNumber>9</minorNumber>
         <namespace>trlhdtips</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>2</majorNumber>
+        <minorNumber>19</minorNumber>
+        <namespace>wk_slider_comp</namespace>
     </packageVersions>
 </ApexPage>

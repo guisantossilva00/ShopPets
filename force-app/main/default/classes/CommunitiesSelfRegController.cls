@@ -6,6 +6,8 @@ public class CommunitiesSelfRegController {
     public String firstName {get; set;}
     public String lastName {get; set;}
     public String email {get; set;}
+    public String phone {get; set;}
+    public String cpf {get; set;}
     public String password {get; set {password = value == null ? value : value.trim(); } }
     public String confirmPassword {get; set { confirmPassword = value == null ? value : value.trim(); } }
     public String communityNickname {get; set { communityNickname = value == null ? value : value.trim(); } }
@@ -39,6 +41,8 @@ public class CommunitiesSelfRegController {
         User u = new User();
         u.Username = userName;
         u.Email = email;
+        u.Phone = phone;
+        
         u.FirstName = firstName;
         u.LastName = lastName;
         u.CommunityNickname = communityNickname;

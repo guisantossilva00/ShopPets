@@ -1,0 +1,29 @@
+<aura:component implements="forceCommunity:themeLayout">
+    <aura:attribute name="header" type="Aura.Component[]"/>
+    <aura:attribute name="footer" type="Aura.Component[]"/>
+    <div class="custom-wrapper">
+        <div class="slds-grid slds-grid_vertical-align-center">
+            <div class="slds-col">
+                {!v.header}
+            </div>
+        </div>
+        <div class="content" style=
+        "width: 70%;
+        margin-left: 15%;
+        border-radius: 20px;
+        ">
+            {!v.body}
+        </div>
+        <!-- <div class="slds-grid slds-grid_vertical-align-end">
+            <div class="slds-col">
+              <span>Footer left</span>
+            </div>
+            <div class="slds-col">
+                {!v.footer}
+            </div>
+            <div class="slds-col">
+              <span>Footer right</span>
+            </div>
+          </div> -->
+    </div>
+</aura:component>

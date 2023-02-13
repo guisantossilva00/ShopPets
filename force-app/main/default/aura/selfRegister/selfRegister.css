@@ -1,7 +1,7 @@
 .THIS #sfdc_username_container{
     margin-bottom:10px;
     padding: 12px;
-    background-color:white;
+    background-color:rgb(255, 255, 255);
     border: 1px solid #CCC;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -104,11 +104,11 @@
     -ms-user-select: none;
 }
 
-.THIS  button:hover {
+/* .THIS  button:hover {
     background-color:#3276b1;
     border-color:#285e8e;
     cursor:pointer;
-}
+} */
 
 .THIS  input {
     margin-left:10px;
