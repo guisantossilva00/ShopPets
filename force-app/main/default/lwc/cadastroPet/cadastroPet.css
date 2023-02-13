@@ -28,6 +28,8 @@ label {
     width: 50%;
     flex-direction: column;
     gap: 8px;
+    min-width: 200px;
+    max-width: 378px;
 }
 
 .position-control {
@@ -38,9 +40,9 @@ input, select {
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
-    min-width: 200px;
+    /* min-width: 200px; */
     width: 100%;
-    max-width: 378px;
+    /* max-width: 378px; */
     height: 75px;
     padding: 19px;
     color: #7E7E7E;
@@ -62,8 +64,9 @@ option:disabled {
 .position-control span {
     position: absolute;
     top: 25px;
-    right: 18px;
+    right: 16px;
     z-index: 1;
+    user-select: none;
     width: 14px;
 }
 

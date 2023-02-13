@@ -9,12 +9,12 @@
                 <div class="container-individual">
                     <label for="qualPet">Qual é o tipo do seu Pet?</label>
                     <div class="position-control">
-                        <select id="qualPet" name="qualPet">
+                        <select id="qualPet" name="qualPet" onchange={getNames}>
                             <option value="" disabled selected>Escolha uma opção</option>
                             <option value="Cachorro">Cachorro</option>
                             <option value="Gato">Gato</option>
                             <option value="Roedor">Roedor</option>
-                            <option value="Pássaro">Pássaro</option>
+                            <option value="Passaro">Pássaro</option>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
                     </div>
@@ -100,40 +100,44 @@
                             !-- Cachorro -->
                             
                             !-- Gato -->
-                            <template if:false={qualTipoPet.Cachorro}>
-                            <option value="American Curl">American Curl</option>
-                            <option value="American Shorthair">American Shorthair</option>
-                            <option value="Angorá">Angorá</option>
-                            <option value="Azul Russo">Azul Russo</option>
-                            <option value="Balinês">Balinês</option>
-                            <option value="Bengal">Bengal</option>
-                            <option value="Bobtail Japonês">Bobtail Japonês</option>
-                            <option value="Bosques da Noruega">Bosques da Noruega</option>
-                            <option value="Brazilian Shorhair">Brazilian Shorhair</option>
-                            <option value="Burmilla">Burmilla</option>
-                            <option value="Burmês">Burmês</option>
-                            <option value="Chartreux">Chartreux</option>
-                            <option value="ColorPoint">ColorPoint</option>
-                            <option value="Cornish Rex">Cornish Rex</option>
-                            <option value="Devon Rex">Devon Rex</option>
-                            <option value="Egyptian Mau">Egyptian Mau</option>
-                            <option value="European Shorhair">European Shorhair</option>
-                            <option value="SRD">Sem Raça Defenida</option>
+                            <template if:true={qualTipoPet.Gato}>
+                                <option value="American Curl">American Curl</option>
+                                <option value="American Shorthair">American Shorthair</option>
+                                <option value="Angorá">Angorá</option>
+                                <option value="Azul Russo">Azul Russo</option>
+                                <option value="Balinês">Balinês</option>
+                                <option value="Bengal">Bengal</option>
+                                <option value="Bobtail Japonês">Bobtail Japonês</option>
+                                <option value="Bosques da Noruega">Bosques da Noruega</option>
+                                <option value="Brazilian Shorhair">Brazilian Shorhair</option>
+                                <option value="Burmilla">Burmilla</option>
+                                <option value="Burmês">Burmês</option>
+                                <option value="Chartreux">Chartreux</option>
+                                <option value="ColorPoint">ColorPoint</option>
+                                <option value="Cornish Rex">Cornish Rex</option>
+                                <option value="Devon Rex">Devon Rex</option>
+                                <option value="Egyptian Mau">Egyptian Mau</option>
+                                <option value="European Shorhair">European Shorhair</option>
+                                <option value="SRD">Sem Raça Defenida</option>
+                            </template>
                             !-- Gato -->
 
                             !-- Roeador -->
-                            <option value="Coelho">Coelho</option>
-                            <option value="Porquinho da India">Porquinho da India</option>
-                            <option value="Rato">Rato</option>
+                            <template if:true={qualTipoPet.Roedor}>
+                                <option value="Coelho">Coelho</option>
+                                <option value="Porquinho da India">Porquinho da India</option>
+                                <option value="Rato">Rato</option>
+                            </template>
                             !-- Roeador -->
 
                             !-- Pássaro -->
-                            <option value="Papagaio">Papagaio</option>
-                            <option value="Arara">Arara</option>
-                            <option value="Calopsita">Calopsita</option>
-                            <option value="Canário">Canário</option>
+                            <template if:true={qualTipoPet.Passaro}>
+                                <option value="Papagaio">Papagaio</option>
+                                <option value="Arara">Arara</option>
+                                <option value="Calopsita">Calopsita</option>
+                                <option value="Canário">Canário</option>
+                            </template>
                             !-- Pássaro -->
-                                </template>
                         </select>
                         <span><img src={setaBaixoIcon} alt="Icone seta para baixo" title="Icone seta para baixo"></span>
                     </div>
